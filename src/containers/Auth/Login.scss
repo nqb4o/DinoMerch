@@ -122,6 +122,10 @@
       }
     }
 
+    .login-button[disabled=disabled], .login-button:disabled {
+      cursor: not-allowed;
+    }
+
     .login-options {
       margin-top: 10px;
       display: flex;

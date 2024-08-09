@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Login.scss';
 import logo from '../../assets/logo.svg';
 import { handleLoginApi } from '../../services/userService';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { useNavigate } from "react-router-dom";
+import { path } from '../../utils'
 
 
 function Login() {
+    const navigate = useNavigate()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [isShowPassword, setIsShowPassword] = useState(false)
-    const [errMessage, setErrMessage] = useState('')
+    const [loadingAPI, setLoadingAPI] = useState(false)
 
+    useEffect(() => {
+        let token = localStorage.getItem('token')
+        if (token) {
+            navigate(path.BOX_CHAT);
+        }
+    })
 
     const handleOnChangeUsername = (event) => {
         setUsername(event.target.value);
@@ -22,23 +33,21 @@ function Login() {
     }
 
     const handleLogin = async (event) => {
+        setLoadingAPI(true)
         event.preventDefault();
-        setErrMessage('');
-        try {
-            let data = await handleLoginApi(username, password)
-            if (data && data.errCode !== 0) {
-                setErrMessage(data.message)
-            }
-            if (data && data.errCode == 0) {
-                this.props.userLoginSuccess(data.user)
-                console.log("Login succeeds")
-            }
-        } catch (e) {
-            if (e.response) {
-                setErrMessage(e.response.data.message)
-            }
-            console.log(e.response)
+        let res = await handleLoginApi(username, password)
+        if (!username || !password) {
+            alert('Email or password is required')
         }
+        if (res && res.token) {
+            localStorage.setItem('token', res.token);
+            navigate(path.BOX_CHAT);
+        } else {
+            if (res && res.status === 400) {
+                alert(res.data.error)
+            }
+        }
+        setLoadingAPI(false)
     }
 
     const handleShowHidePassword = () => {
@@ -63,7 +72,7 @@ function Login() {
                         <h2>Đăng nhập</h2>
                         <form onSubmit={handleLogin}>
                             <div className="input-group">
-                                <label htmlFor="username">Tên đăng nhập</label>
+                                <label htmlFor="username">Tên đăng nhập (eve.holt@reqres.in)</label>
                                 <input
                                     type="text"
                                     id="username"
@@ -73,7 +82,7 @@ function Login() {
                                 />
                             </div>
                             <div className="input-group">
-                                <label htmlFor="password">Mật khẩu</label>
+                                <label htmlFor="password">Mật khẩu (cityslicka)</label>
                                 <div className="password-wrapper">
                                     <input
                                         type={isShowPassword ? 'text' : 'password'}
@@ -93,8 +102,9 @@ function Login() {
                             <button
                                 type="submit"
                                 className="login-button"
-                            >
-                                Đăng nhập
+                                disabled={username && password ? false : true}
+                            >{loadingAPI && <FontAwesomeIcon icon={faSpinner} pulse />}
+                                &nbsp;Đăng nhập
                             </button>
                             <div className="login-options">
                                 <a href='/'>Gặp vấn đề với Đăng nhập</a>
