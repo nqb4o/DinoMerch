@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './Login.scss';
 import logo from '../../assets/logo.svg';
+import { handleLoginApi } from '../../services/userService';
+
 
 function Login() {
     const [username, setUsername] = useState('')
@@ -19,14 +21,25 @@ function Login() {
         console.log(event.target.value);
     }
 
-    const handleLogin = async () => {
+    const handleLogin = async (event) => {
+        event.preventDefault();
         setErrMessage('');
         try {
-
+            let data = await handleLoginApi(username, password)
+            if (data && data.errCode !== 0) {
+                setErrMessage(data.message)
+            }
+            if (data && data.errCode == 0) {
+                this.props.userLoginSuccess(data.user)
+                console.log("Login succeeds")
+            }
         } catch (e) {
-
+            if (e.response) {
+                setErrMessage(e.response.data.message)
+            }
+            console.log(e.response)
         }
-    };
+    }
 
     const handleShowHidePassword = () => {
         setIsShowPassword(!isShowPassword)
@@ -48,7 +61,7 @@ function Login() {
                 <div className="login-container">
                     <div className="login-box">
                         <h2>Đăng nhập</h2>
-                        <form action="/">
+                        <form onSubmit={handleLogin}>
                             <div className="input-group">
                                 <label htmlFor="username">Tên đăng nhập</label>
                                 <input
@@ -80,7 +93,6 @@ function Login() {
                             <button
                                 type="submit"
                                 className="login-button"
-                                onClick={handleLogin}
                             >
                                 Đăng nhập
                             </button>
