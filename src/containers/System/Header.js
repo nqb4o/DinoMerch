@@ -10,7 +10,6 @@ function Header() {
     const handleLogout = () => {
         localStorage.removeItem('token');
         navigate('/login')
-        alert("Logout successfully")
     }
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
@@ -22,8 +21,8 @@ function Header() {
                         <NavLink to="/" className="nav-link">Home</NavLink>
                     </Nav>
                     <Nav>
-                        <NavDropdown title="Login/Logout" id="basic-nav-dropdown">
-                            <NavLink to="/login" className="dropdown-item">Login</NavLink>
+                        <NavDropdown title="Menu" id="basic-nav-dropdown">
+                            {/*<NavLink to="/login" className="dropdown-item">Login</NavLink>*/}
                             <NavDropdown.Item onClick={handleLogout}>Logout </NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
