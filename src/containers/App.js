@@ -3,6 +3,7 @@ import Login from "./Auth/Login.js";
 import BoxChat from "./System/BoxChat"
 import ErrorPage from "./ErrorPage"
 import { path } from '../utils'
+import './App.scss'
 
 import {
     createBrowserRouter,
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage/>,
     },
     {
-        path: path.BOX_CHAT,
+        path: path.BOXCHAT,
         element: <BoxChat/>,
     }
 ]);

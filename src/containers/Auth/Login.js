@@ -18,7 +18,7 @@ function Login() {
     useEffect(() => {
         let token = localStorage.getItem('token')
         if (token) {
-            navigate(path.BOX_CHAT);
+            navigate(path.BOXCHAT);
         }
     })
 
@@ -56,7 +56,7 @@ function Login() {
 
         return (
             <div className='background'>
-                <nav className="navbar">
+                <nav className="navbar-login">
                     <div className="navbar-left">
                         <a href='/'><img src={logo} alt='logo'/></a>
                     </div>
@@ -71,7 +71,7 @@ function Login() {
                     <div className="login-box">
                         <h2>Đăng nhập</h2>
                         <form onSubmit={handleLogin}>
-                            <div className="input-group">
+                            <div className="form-group">
                                 <label htmlFor="username">Tên đăng nhập (eve.holt@reqres.in)</label>
                                 <input
                                     type="text"
@@ -81,8 +81,8 @@ function Login() {
                                     onChange={handleOnChangeUsername}
                                 />
                             </div>
-                            <div className="input-group">
-                                <label htmlFor="password">Mật khẩu (cityslicka)</label>
+                            <div className="form-group">
+                                <label htmlFor="password">Mật khẩu</label>
                                 <div className="password-wrapper">
                                     <input
                                         type={isShowPassword ? 'text' : 'password'}

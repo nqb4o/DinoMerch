@@ -1,8 +1,8 @@
 export const path = {
     HOME: '/',
     LOGIN: '/login',
-    LOG_OUT: '/logout',
-    BOX_CHAT: '/box-chat',
+    LOGOUT: '/logout',
+    BOXCHAT: '/boxchat',
     SYSTEM: '/system'
 };
 
