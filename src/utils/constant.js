@@ -2,8 +2,8 @@ export const path = {
     HOME: '/',
     LOGIN: '/login',
     LOGOUT: '/logout',
-    BOXCHAT: '/boxchat',
-    SYSTEM: '/system'
+    SYSTEM: '/system',
+    PAYMENT: '/payment',
 };
 
 export const manageActions = {

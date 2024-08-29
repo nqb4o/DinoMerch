@@ -18,7 +18,7 @@ function Login() {
     useEffect(() => {
         let token = localStorage.getItem('token')
         if (token) {
-            navigate(path.BOXCHAT);
+            navigate(path.HOME);
         }
     })
 
@@ -41,7 +41,7 @@ function Login() {
         }
         if (res && res.token) {
             localStorage.setItem('token', res.token);
-            navigate(path.BOX_CHAT);
+            navigate(path.HOME);
         } else {
             if (res && res.status === 400) {
                 alert(res.data.error)
@@ -54,74 +54,74 @@ function Login() {
         setIsShowPassword(!isShowPassword)
     }
 
-        return (
-            <div className='background'>
-                <nav className="navbar-login">
-                    <div className="navbar-left">
-                        <a href='/'><img src={logo} alt='logo'/></a>
-                    </div>
-                    <div className="navbar-right">
-                        <ul>
-                            <li><a href='/'>Đăng nhập</a></li>
-                            <li><a href='/'>Khách</a></li>
-                        </ul>
-                    </div>
-                </nav>
-                <div className="login-container">
-                    <div className="login-box">
-                        <h2>Đăng nhập</h2>
-                        <form onSubmit={handleLogin}>
-                            <div className="form-group">
-                                <label htmlFor="username">Tên đăng nhập (eve.holt@reqres.in)</label>
-                                <input
-                                    type="text"
-                                    id="username"
-                                    placeholder=""
-                                    value={username}
-                                    onChange={handleOnChangeUsername}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="password">Mật khẩu</label>
-                                <div className="password-wrapper">
-                                    <input
-                                        type={isShowPassword ? 'text' : 'password'}
-                                        id="password"
-                                        placeholder=""
-                                        value={password}
-                                        onChange={handleOnChangePassword}
-                                    />
-                                    <button
-                                        type="button"
-                                        className="toggle-password"
-                                        onClick={handleShowHidePassword}>
-                                        {isShowPassword ? "Ẩn" : "Hiện"}
-                                    </button>
-                                </div>
-                            </div>
-                            <button
-                                type="submit"
-                                className="login-button"
-                                disabled={username && password ? false : true}
-                            >{loadingAPI && <FontAwesomeIcon icon={faSpinner} pulse />}
-                                &nbsp;Đăng nhập
-                            </button>
-                            <div className="login-options">
-                                <a href='/'>Gặp vấn đề với Đăng nhập</a>
-                                <a href='/'>Quên mật khẩu</a>
-                            </div>
-                        </form>
-                        <div className="guest-login">
-                            <div className='guest-login-title'>
-                                <div/>
-                                <p>Không phải người của tổ chức</p>
-                                <div/>
-                            </div>
-                            <button className="guest-button">Vào với tư cách khách</button>
+    return (
+        <div className='background'>
+            <nav className="navbar-login">
+                <div className="navbar-left">
+                    <a href='/'><img src={logo} alt='logo' /></a>
+                </div>
+                <div className="navbar-right">
+                    <ul>
+                        <li><a href='/'>Đăng nhập</a></li>
+                        <li><a href='/'>Khách</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div className="login-container">
+                <div className="login-box">
+                    <h2>Đăng nhập</h2>
+                    <form onSubmit={handleLogin}>
+                        <div className="form-group">
+                            <label htmlFor="username">Tên đăng nhập (eve.holt@reqres.in)</label>
+                            <input
+                                type="text"
+                                id="username"
+                                placeholder=""
+                                value={username}
+                                onChange={handleOnChangeUsername}
+                            />
                         </div>
+                        <div className="form-group">
+                            <label htmlFor="password">Mật khẩu</label>
+                            <div className="password-wrapper">
+                                <input
+                                    type={isShowPassword ? 'text' : 'password'}
+                                    id="password"
+                                    placeholder=""
+                                    value={password}
+                                    onChange={handleOnChangePassword}
+                                />
+                                <button
+                                    type="button"
+                                    className="toggle-password"
+                                    onClick={handleShowHidePassword}>
+                                    {isShowPassword ? "Ẩn" : "Hiện"}
+                                </button>
+                            </div>
+                        </div>
+                        <button
+                            type="submit"
+                            className="login-button"
+                            disabled={username && password ? false : true}
+                        >{loadingAPI && <FontAwesomeIcon icon={faSpinner} pulse />}
+                            &nbsp;Đăng nhập
+                        </button>
+                        <div className="login-options">
+                            <a href='/'>Gặp vấn đề với Đăng nhập</a>
+                            <a href='/'>Quên mật khẩu</a>
+                        </div>
+                    </form>
+                    <div className="guest-login">
+                        <div className='guest-login-title'>
+                            <div />
+                            <p>Không phải người của tổ chức</p>
+                            <div />
+                        </div>
+                        <button className="guest-button">Vào với tư cách khách</button>
                     </div>
                 </div>
             </div>
+        </div>
     )
 }
 

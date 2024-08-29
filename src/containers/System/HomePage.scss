@@ -1,0 +1,124 @@
+.cart,
+.list {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 500;
+}
+#container {
+  .banner {
+    height: 450px;
+    background-color: rgb(9, 9, 9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    margin: 150px auto;
+    padding: 0px 35px;
+    .text {
+      color: white;
+      h2 {
+        font-size: 54px;
+        font-weight: 700;
+        padding-bottom: 30px;
+        color: white;
+      }
+      p {
+        font-size: 32px;
+        font-weight: 400;
+        width: 500px;
+        padding-bottom: 50px;
+        color: white;
+      }
+    }
+    .button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 204px;
+      height: 50px;
+      background-color: rgb(235, 100, 64);
+      gap: 16px;
+      border-radius: 8px;
+      p {
+        font-size: 13px;
+        font-weight: 600;
+        color: white;
+        margin: 0;
+      }
+    }
+  }
+  h1 {
+    font-size: 50px;
+    font-weight: 700;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+  .product-lib {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 90px;
+    max-width: 75%;
+    margin: auto;
+    margin-bottom: 90px;
+    .g-col-4 {
+      width: 320px;
+      .product-img {
+        display: flex;
+        height: 320px;
+        .prd {
+          height: 100%;
+          border-radius: 5px;
+        }
+        .heart {
+          height: 24px;
+          width: 24px;
+          position: relative;
+          top: 20px;
+          right: 40px;
+          cursor: pointer;
+        }
+      }
+      .product-body {
+        .product-title {
+          padding-top: 25px;
+          font-size: 16px;
+          font-weight: 600;
+          color: #5c5c5c;
+        }
+        .product-price {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding-top: 15px;
+          p {
+            color: #141414;
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0;
+          }
+          .button {
+            width: 123px;
+            height: 32px;
+            background-color: white;
+            border-radius: 4px;
+            border: 1.5px solid #eb6440;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            p {
+              color: #eb6440;
+              font-size: 13px;
+              font-weight: 600;
+            }
+          }
+        }
+      }
+    }
+  }
+}
