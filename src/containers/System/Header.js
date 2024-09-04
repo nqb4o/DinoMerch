@@ -6,12 +6,14 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useNavigate } from "react-router-dom";
 import './Header.scss'
 import logo from '../../assets/images/logo.svg'
-import cart from '../../assets/images/cart.svg'
-import list from '../../assets/images/ph_heart.svg'
+import cartIcon from '../../assets/images/cart.svg'
+import listIcon from '../../assets/images/ph_heart.svg'
 import CartMenu from './CartMenu';
 import ListMenu from './ListMenu';
 
-function Header() {
+function Header({ cart, list }) {
+    const totalItemsCart = cart.reduce((acc, item) => acc + item.quantity, 0);
+    const totalItemsList = list.reduce((acc, item) => acc + item.quantity, 0);
     const [isCartOpen, setIsCartOpen] = useState(false)
     const [isWishlistOpen, setIsWishlistOpen] = useState(false)
     const navigate = useNavigate()
@@ -31,6 +33,7 @@ function Header() {
             setIsCartOpen(false);
         }
     }
+
     return (
         <>
             <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
@@ -64,11 +67,13 @@ function Header() {
                         </Nav>
                         <Nav>
                             <li className="cart" href="" onClick={toggleCart}>
-                                <img src={cart} alt="Cart" />
+                                {totalItemsCart !== 0 && <div className='numberOfProduct'>{totalItemsCart}</div>}
+                                <img src={cartIcon} alt="Cart" />
                                 <Nav.Link>Cart</Nav.Link>
                             </li>
                             <li className="list" href="" onClick={toggleWishlist}>
-                                <img src={list} alt="Wishlist" />
+                                {totalItemsList !== 0 && <div className='numberOfProduct'>{totalItemsList}</div>}
+                                <img src={listIcon} alt="Wishlist" />
                                 <Nav.Link>Wishlist</Nav.Link>
                             </li>
                             <Nav.Link onClick={handleLogout}>Log out</Nav.Link>
@@ -76,8 +81,8 @@ function Header() {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-            {isCartOpen && <CartMenu />}
-            {isWishlistOpen && <ListMenu />}
+            {totalItemsCart !== 0 && isCartOpen && <CartMenu cart={cart} />}
+            {totalItemsList !== 0 && isWishlistOpen && <ListMenu list={list} />}
         </>
     );
 }

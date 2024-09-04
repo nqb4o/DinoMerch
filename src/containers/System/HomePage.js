@@ -10,6 +10,8 @@ function HomePage() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [cart, setCart] = useState([]);
+    const [list, setList] = useState([]);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -28,9 +30,36 @@ function HomePage() {
 
     if (loading) return <p>Loading products...</p>;
     if (error) return <p>Error: {error}</p>;
+
+    const addToCart = (product) => {
+        setCart((prevCart) => {
+            const existingProduct = prevCart.find((item) => item._id === product._id);
+            if (existingProduct) {
+                // Nếu sản phẩm đã có trong giỏ hàng, tăng số lượng
+                return prevCart.map((item) =>
+                    item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item
+                );
+            } else {
+                // Nếu chưa có, thêm sản phẩm vào giỏ hàng
+                return [...prevCart, { ...product, quantity: 1 }];
+            }
+        });
+    };
+
+    const addToList = (product) => {
+        setList((prevList) => {
+            const existingProduct = prevList.find((item) => item._id === product._id);
+            if (existingProduct) {
+                return prevList
+            } else {
+                return [...prevList, { ...product, quantity: 1 }];
+            }
+        });
+    };
+
     return (
         <div id="container">
-            <Header />
+            <Header cart={cart} list={list} />
             <div className="banner w-75">
                 <div className="cont">
                     <div className="text">
@@ -52,14 +81,19 @@ function HomePage() {
                     <div key={product._id} className="g-col-4">
                         <div className="product-img">
                             <img className="prd" src={product.image} alt={product.name} />
-                            <img className="heart" src={heart1} alt="Wishlist" />
+                            <img
+                                onClick={() => addToList(product)}
+                                className="heart"
+                                src={heart1}
+                                alt="Wishlist"
+                            />
                         </div>
                         <div className='product-body'>
                             <p className="product-title">{product.name}</p>
                             <div className="product-price">
                                 <p>${product.price}</p>
                                 <div className="button">
-                                    <p>Add to cart</p>
+                                    <p onClick={() => addToCart(product)}>Add to cart</p>
                                 </div>
                             </div>
                         </div>

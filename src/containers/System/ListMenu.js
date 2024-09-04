@@ -1,23 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import './HomePage.scss';
+import React from 'react';
+import './Header.scss';
 
-function ListMenu() {
-
+function ListMenu({ list }) {
     return (
         <div className="list-menu">
-            <div className="list-menu-links">
-                <div className="list-menu-link">
-                    <div className='product-image' >
-                        <img src="" alt="" />
+            {list.map((item) => (
+                <div key={item._id} className="list-menu-links">
+                    <div className="list-menu-link">
+                        <div className='product-image' >
+                            <img src={item.image} alt={item.name} />
+                        </div>
+                        <div className="atc-inf">
+                            <div className="prd-name">{item.name}</div>
+                            <div className="price">${item.price}</div>
+                            <button className="box">Add to cart</button>
+                        </div>
                     </div>
-                    <div className="atc-inf">
-                        <div className="prd-name">Chrome Dino Mug</div>
-                        <div className="price">$14.00</div>
-                        <button className="box">Add to cart</button>
-                    </div>
+                    <div className='line'></div>
                 </div>
-                <div className='line'></div>
-            </div>
+            ))}
         </div>
     )
 }
