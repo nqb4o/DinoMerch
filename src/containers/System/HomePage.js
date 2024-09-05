@@ -4,6 +4,8 @@ import Header from './Header';
 import arrow1 from '../../assets/images/Arrow 1.svg'
 import dino from '../../assets/images/dino.svg'
 import heart1 from '../../assets/images/heart1.svg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { fetchProductsApi } from '../../services/userService';
 
 function HomePage() {
@@ -35,15 +37,33 @@ function HomePage() {
         setCart((prevCart) => {
             const existingProduct = prevCart.find((item) => item._id === product._id);
             if (existingProduct) {
-                // Nếu sản phẩm đã có trong giỏ hàng, tăng số lượng
                 return prevCart.map((item) =>
                     item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item
                 );
             } else {
-                // Nếu chưa có, thêm sản phẩm vào giỏ hàng
                 return [...prevCart, { ...product, quantity: 1 }];
             }
-        });
+        })
+    }
+
+    const removeToCart = (productId) => {
+        setCart((prevCart) => prevCart.filter((item) => item._id !== productId));
+    }
+
+    const increaseQuantity = (productId) => {
+        setCart((prevCart) =>
+            prevCart.map((item) =>
+                item._id === productId ? { ...item, quantity: item.quantity + 1 } : item
+            )
+        );
+    };
+
+    const decreaseQuantity = (productId) => {
+        setCart((prevCart) =>
+            prevCart.map((item) =>
+                item._id === productId && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
+            )
+        );
     };
 
     const addToList = (product) => {
@@ -54,12 +74,27 @@ function HomePage() {
             } else {
                 return [...prevList, { ...product, quantity: 1 }];
             }
-        });
-    };
+        })
+    }
+
+    const removeToList = (productId) => {
+        setList((prevList) => prevList.filter((item) => item._id !== productId));
+    }
+
+    const isInList = (productId) => {
+        return list.find((item) => item._id === productId);
+    }
 
     return (
         <div id="container">
-            <Header cart={cart} list={list} />
+            <Header
+                cart={cart}
+                addToCart={addToCart}
+                increaseQuantity={increaseQuantity}
+                decreaseQuantity={decreaseQuantity}
+                removeToCart={removeToCart}
+                list={list}
+            />
             <div className="banner w-75">
                 <div className="cont">
                     <div className="text">
@@ -81,12 +116,22 @@ function HomePage() {
                     <div key={product._id} className="g-col-4">
                         <div className="product-img">
                             <img className="prd" src={product.image} alt={product.name} />
-                            <img
-                                onClick={() => addToList(product)}
-                                className="heart"
-                                src={heart1}
-                                alt="Wishlist"
-                            />
+                            {!isInList(product._id)
+                                ? <img
+                                    onClick={() => addToList(product)}
+                                    className="heart"
+                                    src={heart1}
+                                    alt="Wishlist"
+                                />
+                                :
+                                <FontAwesomeIcon
+                                    color='red'
+                                    onClick={() => removeToList(product._id)}
+                                    className="heart"
+                                    alt="Wishlist"
+                                    icon={faHeart}
+                                />
+                            }
                         </div>
                         <div className='product-body'>
                             <p className="product-title">{product.name}</p>

@@ -11,7 +11,7 @@ import listIcon from '../../assets/images/ph_heart.svg'
 import CartMenu from './CartMenu';
 import ListMenu from './ListMenu';
 
-function Header({ cart, list }) {
+function Header({ cart, increaseQuantity, decreaseQuantity, removeToCart, addToCart, list }) {
     const totalItemsCart = cart.reduce((acc, item) => acc + item.quantity, 0);
     const totalItemsList = list.reduce((acc, item) => acc + item.quantity, 0);
     const [isCartOpen, setIsCartOpen] = useState(false)
@@ -81,8 +81,18 @@ function Header({ cart, list }) {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-            {totalItemsCart !== 0 && isCartOpen && <CartMenu cart={cart} />}
-            {totalItemsList !== 0 && isWishlistOpen && <ListMenu list={list} />}
+            {totalItemsCart !== 0 && isCartOpen && <CartMenu
+                cart={cart}
+                increaseQuantity={increaseQuantity}
+                decreaseQuantity={decreaseQuantity}
+                removeToCart={removeToCart}
+            />}
+            {totalItemsList !== 0 && isWishlistOpen &&
+                <ListMenu
+                    list={list}
+                    addToCart={addToCart}
+                />
+            }
         </>
     );
 }

@@ -3,7 +3,7 @@ import './Header.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
-function CartMenu({ cart }) {
+function CartMenu({ cart, increaseQuantity, decreaseQuantity, removeToCart }) {
     const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
     return (
         <div className="cart-menu">
@@ -13,15 +13,17 @@ function CartMenu({ cart }) {
                         <img src={item.image} alt={item.name} />
                         <div className="prd-name">{item.name}</div>
                         <div className="number">
-                            <div className="minus"></div>
+                            <div onClick={() => decreaseQuantity(item._id)} className="minus">-</div>
                             <div className="quantity">{item.quantity}</div>
-                            <div className="plus">
-                                <div className="ngang"></div>
-                                <div className="doc"></div>
-                            </div>
+                            <div onClick={() => increaseQuantity(item._id)} className="plus">+</div>
                         </div>
-                        <div className="price">${item.price}</div>
-                        <div className="trast"><FontAwesomeIcon icon={faTrashAlt} /></div>
+                        <div className="price">${item.price * item.quantity}</div>
+                        <div className="trast">
+                            <FontAwesomeIcon
+                                onClick={() => removeToCart(item._id)}
+                                icon={faTrashAlt}
+                            />
+                        </div>
                     </div>
                     <div className='line'></div>
                 </div>

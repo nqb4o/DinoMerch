@@ -87,31 +87,21 @@ nav.bg-body-tertiary.navbar.navbar-expand-lg.navbar-light {
         align-items: center;
         gap: 24px;
         .minus {
-          background-color: black;
-          width: 14px;
-          height: 1px;
           cursor: pointer;
+          font-size: xx-large;
+          font-weight: 500;
+          user-select: none;
         }
         .quantity {
           font-size: 14px;
           font-weight: 600;
+          user-select: none;
         }
         .plus {
           cursor: pointer;
-          .ngang {
-            background-color: black;
-            width: 14px;
-            height: 1px;
-            position: relative;
-            top: 7px;
-          }
-          .doc {
-            background-color: black;
-            width: 1px;
-            height: 14px;
-            position: relative;
-            left: 7px;
-          }
+          font-size: x-large;
+          font-weight: 500;
+          user-select: none;
         }
       }
       .price {
