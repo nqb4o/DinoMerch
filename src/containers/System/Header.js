@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -12,13 +13,14 @@ import CartMenu from './CartMenu';
 import ListMenu from './ListMenu';
 
 function Header({ cart, increaseQuantity, decreaseQuantity, removeToCart, addToCart, list }) {
+    const { isAuthenticated, logout } = useAuth();
     const totalItemsCart = cart && cart.length > 0 ? cart.reduce((acc, item) => acc + item.quantity, 0) : 0
     const totalItemsList = list && list.length > 0 ? list.reduce((acc, item) => acc + item.quantity, 0) : 0
     const [isCartOpen, setIsCartOpen] = useState(false)
     const [isWishlistOpen, setIsWishlistOpen] = useState(false)
     const navigate = useNavigate()
     const handleLogout = () => {
-        localStorage.removeItem('token');
+        logout()
         navigate('/login')
     }
     const toggleCart = () => {
@@ -38,7 +40,7 @@ function Header({ cart, increaseQuantity, decreaseQuantity, removeToCart, addToC
         <>
             <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
                 <Container>
-                    <Navbar.Brand href="#home">
+                    <Navbar.Brand href="/">
                         <img
                             alt=""
                             src={logo}
@@ -65,7 +67,7 @@ function Header({ cart, increaseQuantity, decreaseQuantity, removeToCart, addToC
                                 </NavDropdown.Item>
                             </NavDropdown>
                         </Nav>
-                        <Nav>
+                        {isAuthenticated && <Nav>
                             <li className="cart" href="" onClick={toggleCart}>
                                 {totalItemsCart !== 0 && <div className='numberOfProduct'>{totalItemsCart}</div>}
                                 <img src={cartIcon} alt="Cart" />
@@ -77,7 +79,7 @@ function Header({ cart, increaseQuantity, decreaseQuantity, removeToCart, addToC
                                 <Nav.Link>Wishlist</Nav.Link>
                             </li>
                             <Nav.Link onClick={handleLogout}>Log out</Nav.Link>
-                        </Nav>
+                        </Nav>}
                     </Navbar.Collapse>
                 </Container>
             </Navbar>

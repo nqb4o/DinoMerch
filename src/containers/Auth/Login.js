@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
 import './Login.scss';
 import { handleLoginApi } from '../../services/userService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -12,6 +13,7 @@ function Login() {
     const [isShowPassword, setIsShowPassword] = useState(false)
     const [loadingAPI, setLoadingAPI] = useState(false)
     const navigate = useNavigate()
+    const { login } = useAuth();
     useEffect(() => {
         const token = localStorage.getItem('token')
         if (token) {
@@ -33,6 +35,7 @@ function Login() {
         }
         if (res && res.token) {
             localStorage.setItem('token', res.token);
+            login();
             navigate(path.HOME);
         } else {
             if (res && res.status === 400) {

@@ -58,7 +58,7 @@ function ThanksModal({ totalPrice }) {
                                 <p>Grand total:</p>
                                 <p>${(totalPrice + 6.50 + 0.80).toFixed(2)}</p>
                             </div>
-                            <a href="index.html#products">
+                            <a href="/">
                                 <button type="button" onClick="closeThanks()">
                                     Continue Shopping
                                 </button>

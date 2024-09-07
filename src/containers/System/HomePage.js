@@ -101,12 +101,10 @@ function HomePage() {
                         <h2>Shop the Look: dinomerch - Define Your Style!</h2>
                         <p>Elevate Your Wardrobe with Exclusive merch</p>
                     </div>
-                    <a href="#products">
-                        <button type='button' className="button">
-                            <p>Scroll down for more</p>
-                            <img src={arrow1} alt="" />
-                        </button>
-                    </a>
+                    <button type='button' className="button">
+                        <p>Scroll down for more</p>
+                        <img src={arrow1} alt="" />
+                    </button>
                 </div>
                 <div className="img"><img src={dino} alt="" /></div>
             </div>
