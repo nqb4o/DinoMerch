@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const instance = axios.create({
-    baseURL: 'https://testapi.io',
+    // baseURL: 'https://testapi.io',
     // timeout: 5000
 })
 

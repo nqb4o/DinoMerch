@@ -2,6 +2,7 @@ import React from 'react';
 import './Header.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 function CartMenu({ cart, increaseQuantity, decreaseQuantity, removeToCart }) {
     const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -30,9 +31,14 @@ function CartMenu({ cart, increaseQuantity, decreaseQuantity, removeToCart }) {
             ))}
             <div className="menu-footer">
                 <div>Total : ${totalPrice}</div>
-                <a href="/" target="_blank">
-                    <button className="checkOut">Checkout</button>
-                </a>
+                <button className="checkOut">
+                    <Link
+                        to="/payment"
+                        state={{ cart: cart }}
+                    >
+                        Check Out
+                    </Link>
+                </button>
             </div>
         </div>
     )

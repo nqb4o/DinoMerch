@@ -12,8 +12,8 @@ import CartMenu from './CartMenu';
 import ListMenu from './ListMenu';
 
 function Header({ cart, increaseQuantity, decreaseQuantity, removeToCart, addToCart, list }) {
-    const totalItemsCart = cart.reduce((acc, item) => acc + item.quantity, 0);
-    const totalItemsList = list.reduce((acc, item) => acc + item.quantity, 0);
+    const totalItemsCart = cart && cart.length > 0 ? cart.reduce((acc, item) => acc + item.quantity, 0) : 0
+    const totalItemsList = list && list.length > 0 ? list.reduce((acc, item) => acc + item.quantity, 0) : 0
     const [isCartOpen, setIsCartOpen] = useState(false)
     const [isWishlistOpen, setIsWishlistOpen] = useState(false)
     const navigate = useNavigate()

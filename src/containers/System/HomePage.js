@@ -137,8 +137,8 @@ function HomePage() {
                             <p className="product-title">{product.name}</p>
                             <div className="product-price">
                                 <p>${product.price}</p>
-                                <div className="button">
-                                    <p onClick={() => addToCart(product)}>Add to cart</p>
+                                <div onClick={() => addToCart(product)} className="button">
+                                    Add to cart
                                 </div>
                             </div>
                         </div>
