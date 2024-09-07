@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -10,15 +10,8 @@ import cartIcon from '../../assets/images/cart.svg'
 import listIcon from '../../assets/images/ph_heart.svg'
 import CartMenu from './CartMenu';
 import ListMenu from './ListMenu';
-import { useAuth } from '../../contexts/AuthContext';
 
 function Header({ cart, increaseQuantity, decreaseQuantity, removeToCart, addToCart, list }) {
-    const { isAuthenticated } = useAuth();
-    const [showHeaderContent, setShowHeaderContent] = useState(isAuthenticated);
-    console.log(showHeaderContent)
-    useEffect(() => {
-        setShowHeaderContent(isAuthenticated);
-    }, [isAuthenticated]);
     const totalItemsCart = cart && cart.length > 0 ? cart.reduce((acc, item) => acc + item.quantity, 0) : 0
     const totalItemsList = list && list.length > 0 ? list.reduce((acc, item) => acc + item.quantity, 0) : 0
     const [isCartOpen, setIsCartOpen] = useState(false)
@@ -72,21 +65,19 @@ function Header({ cart, increaseQuantity, decreaseQuantity, removeToCart, addToC
                                 </NavDropdown.Item>
                             </NavDropdown>
                         </Nav>
-                        {isAuthenticated && (
-                            <Nav>
-                                <li className="cart" href="" onClick={toggleCart}>
-                                    {totalItemsCart !== 0 && <div className='numberOfProduct'>{totalItemsCart}</div>}
-                                    <img src={cartIcon} alt="Cart" />
-                                    <Nav.Link>Cart</Nav.Link>
-                                </li>
-                                <li className="list" href="" onClick={toggleWishlist}>
-                                    {totalItemsList !== 0 && <div className='numberOfProduct'>{totalItemsList}</div>}
-                                    <img src={listIcon} alt="Wishlist" />
-                                    <Nav.Link>Wishlist</Nav.Link>
-                                </li>
-                                <Nav.Link onClick={handleLogout}>Log out</Nav.Link>
-                            </Nav>
-                        )}
+                        <Nav>
+                            <li className="cart" href="" onClick={toggleCart}>
+                                {totalItemsCart !== 0 && <div className='numberOfProduct'>{totalItemsCart}</div>}
+                                <img src={cartIcon} alt="Cart" />
+                                <Nav.Link>Cart</Nav.Link>
+                            </li>
+                            <li className="list" href="" onClick={toggleWishlist}>
+                                {totalItemsList !== 0 && <div className='numberOfProduct'>{totalItemsList}</div>}
+                                <img src={listIcon} alt="Wishlist" />
+                                <Nav.Link>Wishlist</Nav.Link>
+                            </li>
+                            <Nav.Link onClick={handleLogout}>Log out</Nav.Link>
+                        </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>

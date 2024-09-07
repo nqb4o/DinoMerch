@@ -19,7 +19,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
     },
     {
-        path: path.REGISTER,  // Thêm route cho trang đăng ký
+        path: path.REGISTER,
         element: <Register />,
     },
     {

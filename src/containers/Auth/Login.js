@@ -6,16 +6,15 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from "react-router-dom";
 import { path } from '../../utils'
 import Header from '../System/Header';
-import { useAuth } from '../../contexts/AuthContext'
 
 function Login() {
-    const { isAuthenticated } = useAuth();
     const [credentials, setCredentials] = useState({ email: '', password: '' });
     const [isShowPassword, setIsShowPassword] = useState(false)
     const [loadingAPI, setLoadingAPI] = useState(false)
     const navigate = useNavigate()
     useEffect(() => {
-        if (isAuthenticated) {
+        const token = localStorage.getItem('token')
+        if (token) {
             navigate(path.HOME);
         }
     })
