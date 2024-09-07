@@ -35,10 +35,10 @@ function HomePage() {
 
     const addToCart = (product) => {
         setCart((prevCart) => {
-            const existingProduct = prevCart.find((item) => item._id === product._id);
+            const existingProduct = prevCart.find((item) => item.id === product.id);
             if (existingProduct) {
                 return prevCart.map((item) =>
-                    item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item
+                    item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
                 );
             } else {
                 return [...prevCart, { ...product, quantity: 1 }];
@@ -47,13 +47,13 @@ function HomePage() {
     }
 
     const removeToCart = (productId) => {
-        setCart((prevCart) => prevCart.filter((item) => item._id !== productId));
+        setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
     }
 
     const increaseQuantity = (productId) => {
         setCart((prevCart) =>
             prevCart.map((item) =>
-                item._id === productId ? { ...item, quantity: item.quantity + 1 } : item
+                item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
             )
         );
     };
@@ -61,14 +61,14 @@ function HomePage() {
     const decreaseQuantity = (productId) => {
         setCart((prevCart) =>
             prevCart.map((item) =>
-                item._id === productId && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
+                item.id === productId && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
             )
         );
     };
 
     const addToList = (product) => {
         setList((prevList) => {
-            const existingProduct = prevList.find((item) => item._id === product._id);
+            const existingProduct = prevList.find((item) => item.id === product.id);
             if (existingProduct) {
                 return prevList
             } else {
@@ -78,11 +78,11 @@ function HomePage() {
     }
 
     const removeToList = (productId) => {
-        setList((prevList) => prevList.filter((item) => item._id !== productId));
+        setList((prevList) => prevList.filter((item) => item.id !== productId));
     }
 
     const isInList = (productId) => {
-        return list.find((item) => item._id === productId);
+        return list.find((item) => item.id === productId);
     }
 
     return (
@@ -113,10 +113,10 @@ function HomePage() {
             <h1>Chrome Dino Merch</h1>
             <div className="product-lib">
                 {products.map((product) => (
-                    <div key={product._id} className="g-col-4">
+                    <div key={product.id} className="g-col-4">
                         <div className="product-img">
                             <img className="prd" src={product.image} alt={product.name} />
-                            {!isInList(product._id)
+                            {!isInList(product.id)
                                 ? <img
                                     onClick={() => addToList(product)}
                                     className="heart"
@@ -126,7 +126,7 @@ function HomePage() {
                                 :
                                 <FontAwesomeIcon
                                     color='red'
-                                    onClick={() => removeToList(product._id)}
+                                    onClick={() => removeToList(product.id)}
                                     className="heart"
                                     alt="Wishlist"
                                     icon={faHeart}

@@ -1,42 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import './Login.scss';
-import logo from '../../assets/logo.svg';
 import { handleLoginApi } from '../../services/userService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from "react-router-dom";
 import { path } from '../../utils'
-
+import Header from '../System/Header';
+import { useAuth } from '../../contexts/AuthContext'
 
 function Login() {
-    const navigate = useNavigate()
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
+    const { isAuthenticated } = useAuth();
+    const [credentials, setCredentials] = useState({ email: '', password: '' });
     const [isShowPassword, setIsShowPassword] = useState(false)
     const [loadingAPI, setLoadingAPI] = useState(false)
-
+    const navigate = useNavigate()
     useEffect(() => {
-        let token = localStorage.getItem('token')
-        if (token) {
+        if (isAuthenticated) {
             navigate(path.HOME);
         }
     })
 
-    const handleOnChangeUsername = (event) => {
-        setUsername(event.target.value);
-        console.log(event.target.value);
+    const handleChange = (e) => {
+        console.log(e)
+        setCredentials({ ...credentials, [e.target.name]: e.target.value });
     };
-
-    const handleOnChangePassword = (event) => {
-        setPassword(event.target.value);
-        console.log(event.target.value);
-    }
 
     const handleLogin = async (event) => {
         setLoadingAPI(true)
         event.preventDefault();
-        let res = await handleLoginApi(username, password)
-        if (!username || !password) {
+        let res = await handleLoginApi(credentials.email, credentials.password)
+        if (!credentials) {
             alert('Email or password is required')
         }
         if (res && res.token) {
@@ -56,29 +49,17 @@ function Login() {
 
     return (
         <div className='background'>
-            <nav className="navbar-login">
-                <div className="navbar-left">
-                    <a href='/'><img src={logo} alt='logo' /></a>
-                </div>
-                <div className="navbar-right">
-                    <ul>
-                        <li><a href='/'>Đăng nhập</a></li>
-                        <li><a href='/'>Khách</a></li>
-                    </ul>
-                </div>
-            </nav>
+            <Header />
             <div className="login-container">
                 <div className="login-box">
                     <h2>Đăng nhập</h2>
                     <form onSubmit={handleLogin}>
                         <div className="form-group">
-                            <label htmlFor="username">Tên đăng nhập (eve.holt@reqres.in)</label>
+                            <label htmlFor="email">Tên đăng nhập (eve.holt@reqres.in)</label>
                             <input
-                                type="text"
-                                id="username"
-                                placeholder=""
-                                value={username}
-                                onChange={handleOnChangeUsername}
+                                type="email"
+                                name="email"
+                                onChange={handleChange}
                             />
                         </div>
                         <div className="form-group">
@@ -86,10 +67,8 @@ function Login() {
                             <div className="password-wrapper">
                                 <input
                                     type={isShowPassword ? 'text' : 'password'}
-                                    id="password"
-                                    placeholder=""
-                                    value={password}
-                                    onChange={handleOnChangePassword}
+                                    name="password"
+                                    onChange={handleChange}
                                 />
                                 <button
                                     type="button"
@@ -102,13 +81,13 @@ function Login() {
                         <button
                             type="submit"
                             className="login-button"
-                            disabled={username && password ? false : true}
+                            disabled={credentials ? false : true}
                         >{loadingAPI && <FontAwesomeIcon icon={faSpinner} pulse />}
                             &nbsp;Đăng nhập
                         </button>
                         <div className="login-options">
-                            <a href='/'>Gặp vấn đề với Đăng nhập</a>
                             <a href='/'>Quên mật khẩu</a>
+                            <a href={path.REGISTER}>Đăng kí</a>
                         </div>
                     </form>
                     <div className="guest-login">

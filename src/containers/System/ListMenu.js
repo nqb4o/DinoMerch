@@ -5,7 +5,7 @@ function ListMenu({ list, addToCart }) {
     return (
         <div className="list-menu">
             {list.map((item) => (
-                <div key={item._id} className="list-menu-links">
+                <div key={item.id} className="list-menu-links">
                     <div className="list-menu-link">
                         <div className='product-image' >
                             <img src={item.image} alt={item.name} />

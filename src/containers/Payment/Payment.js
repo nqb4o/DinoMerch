@@ -4,6 +4,8 @@ import { useLocation } from 'react-router-dom';
 import Arrow from '../../assets/images/Arrow 2.svg'
 import ThanksModal from './ThanksModal';
 import Header from '../System/Header'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCreditCard } from '@fortawesome/free-regular-svg-icons';
 
 function Payment() {
     const location = useLocation()
@@ -49,7 +51,7 @@ function Payment() {
                         <div className="payment-input">
                             <div className="how">
                                 <button>
-                                    <img src="images/ion_card-outline.svg" alt="" />
+                                    <FontAwesomeIcon icon={faCreditCard} />
                                     <p>Visa / Mastercard</p>
                                 </button>
                             </div>
@@ -80,7 +82,7 @@ function Payment() {
                         <div className="order-box">
                             {cart.length > 0 ? (
                                 cart.map((item) => (
-                                    <div className="prd-inf" key={item._id}>
+                                    <div className="prd-inf" key={item.id}>
                                         <img src={item.image} alt={item.name} />
                                         <div className="inf">
                                             <p><b>{item.name}</b></p>

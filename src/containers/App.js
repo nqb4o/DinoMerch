@@ -1,15 +1,16 @@
 import React from "react";
-import Login from "./Auth/Login.js";
-import HomePage from "./System/HomePage.js"
-import Payment from "./Payment/Payment.js";
-import ErrorPage from "./ErrorPage"
-import { path } from '../utils'
-import './App.scss'
-
 import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
+import Login from "./Auth/Login.js";
+import HomePage from "./System/HomePage.js"
+import Payment from "./Payment/Payment.js";
+import ErrorPage from "./ErrorPage"
+import PrivateRoute from "./System/PrivateRoute.js"
+import Register from "./Auth/Register.js";
+import { path } from '../utils'
+import './App.scss'
 
 const router = createBrowserRouter([
     {
@@ -18,12 +19,22 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
     },
     {
+        path: path.REGISTER,  // Thêm route cho trang đăng ký
+        element: <Register />,
+    },
+    {
         path: path.HOME,
-        element: <HomePage />,
+        element:
+            <PrivateRoute>
+                <HomePage />
+            </PrivateRoute>,
     },
     {
         path: path.PAYMENT,
-        element: <Payment />,
+        element:
+            <PrivateRoute>
+                <Payment />
+            </PrivateRoute>,
     },
 ]);
 

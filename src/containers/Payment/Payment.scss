@@ -76,18 +76,21 @@
 }
 .container {
   .back {
-    margin-top: 130px;
-    margin-left: 8vw;
-    width: 273px;
+    margin-top: 50px;
     a {
       display: flex;
-      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+      width: 200px;
+      p {
+        margin: 0;
+      }
     }
   }
   .up {
     margin: 84px 0 84px 0;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     .shipping {
       .title {
         font-size: 28px;
@@ -162,6 +165,7 @@
         p {
           font-size: 17px;
           font-weight: 500;
+          margin: 0;
         }
         input {
           border: 2.5px solid #dfe2e6;
@@ -189,14 +193,14 @@
   .down {
     margin: 84px 0 120px 0;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     .order {
       p {
         font-size: 28px;
         font-weight: 600;
       }
       .order-box {
-        width: 629px;
+        width: 615px;
         height: auto;
         border-radius: 4px;
         background: linear-gradient(0deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
@@ -226,6 +230,7 @@
       }
     }
     .summary {
+      width: 540px;
       p {
         font-size: 28px;
         font-weight: 600;
@@ -248,7 +253,6 @@
         width: 324px;
         height: 72px;
         border-radius: 8px;
-        font-family: Montserrat;
         font-size: 20px;
         font-weight: 600;
         background: #eb6440;
